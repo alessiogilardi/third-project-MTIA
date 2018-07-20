@@ -16,7 +16,24 @@ count_gas = array2table([unique(gas.PV), histc(gas.PV, unique(gas.PV))], 'Variab
 % fatti almeno 10
 gas_gt_10 = gas(ismember(gas.PV, count_gas(count_gas.orders_count>10,{'PV', 'orders_count'}).PV), :);
 
+gas_gt_10 = gas_gt_10(gas_gt_10.PV==1658,:);
 
+figure(1);
+stem(gas_gt_10.Data, gas_gt_10.GAS);
+% xlim(datetime(2018,[1 12],[1 30]))
+% xtickformat('dd-MMM-yyyy')
+ft = fft(gas_gt_10.GAS);
+m = abs(ft); % Magnitude
+p = unwrap(angle(ft)); % Phase
+
+figure(2);
+freqs = (0:length(ft)-1)*100/length(ft); % Vettore frequenze
+subplot(2,1,1)
+plot(freqs,m)
+title('Magnitude')
+subplot(2,1,2)
+plot(freqs,p*180/pi)
+title('Phase')
 
 %histogram(t1.GAS);
 
