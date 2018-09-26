@@ -57,7 +57,7 @@ for i=1:size(inputMatrix,1) % size(inputMatrix,1) = 730
     input(41) = calendarioExcel(i+10);
     input(42) = calendarioExcel(i+11);
     
-   inputMatrix(i,:) = input;
+   inputMatrix(i,:)  = input;
    outputMatrix(i,1) = matriceGasBlu(indexDesiderato,i+10);
    outputMatrix(i,2) = matriceGas(indexDesiderato,i+10);
    outputMatrix(i,3) = matriceBenzina(indexDesiderato,i+10);
