@@ -33,18 +33,19 @@ for k=1:length(giorniTest)
 
     predicted(:,k) = net(testInputValues);
 
-    for i=1:3
-        if predicted(i,k) < 0
-            predicted(i,k) = 0;
-        end
-    end
-    
-    error(:,k)=testOutputValues(:,k)-predicted(:,k);
+%     for i=1:3
+%         if predicted(i,k) < 0
+%             predicted(i,k) = 0;
+%         end
+%     end
+%     
+%     error(:,k)=testOutputValues(:,k)-predicted(:,k);
 end
-e2 = error*error';
-ris=(sum(e2))/length(giorniTest);
-%Display
-ris
 
 
+predicted(predicted < 0) = 0;
+
+error = testOutputValues - predicted;
+error2 = diag(error*error');
+meanSquareError = error2/length(giorniTest)
 

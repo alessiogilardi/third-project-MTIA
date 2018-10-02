@@ -2,7 +2,7 @@
 
 
 % Giorni su cui eseguire il test (dal 01/01/2018 al 28/04/2018)
-testDays = 731:849;
+testDays = 731:848;
 
 % Predispongo le varibili per Uscita, Valori di test e Errore
 predicted        = zeros(3,length(testDays));
@@ -35,6 +35,8 @@ for k=1:length(testDays)
     testOutputValues(1,k) = matriceGasBlu(indexDesiderato, testDays(k));
     testOutputValues(2,k) = matriceGas(indexDesiderato, testDays(k));
     testOutputValues(3,k) = matriceBenzina(indexDesiderato, testDays(k));
+    
+    predicted(:,k) = net(testInputValues(:,k));
 
 %     predicted(:,k) = net(TestingInput);
 % 
@@ -47,10 +49,10 @@ for k=1:length(testDays)
 %     error(:,k)=TestingOutput(:,k)-predicted(:,k);
 end
 
-predicted = net(testInputValues);
+%predicted = net(testInputValues);
 predicted(predicted < 0) = 0;
 
 error = testOutputValues - predicted;
-meanSquError = sum(error*error')/length(testDays);
+meanSquareError = diag(error*error')/length(testDays);
 
 

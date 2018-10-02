@@ -6,10 +6,14 @@ tabella_dati = load_data('Fiorenzuola.xls', '2016', 'A2:E43580');
 
 % Estraggo i dati riguardanti il gas
 dati_gas = tabella_dati(tabella_dati.GAS > 0, {'Data', 'PV', 'GAS'});
+dati_gblu = tabella_dati(tabella_dati.GBLU > 0, {'Data', 'PV', 'GBLU'});
+dati_bsp = tabella_dati(tabella_dati.BSP > 0, {'Data', 'PV', 'BSP'});
 
 % Conto il numero di occorrenze di ogni punto vendita nell'insieme degli
 % ordini del gas
 count_gas = count_occurrencies(dati_gas.PV);
+count_gblu = count_occurrencies(dati_gblu.GBLU);
+count_bsp = count_occurrencies(dati_bsp.BSP);
 
 % Filtro i punti vendita con meno di 10 ordini
 dati_gas = dati_gas(ismember(dati_gas.PV, count_gas(count_gas.orders_count>10, :).PV), :);

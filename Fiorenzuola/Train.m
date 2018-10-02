@@ -5,7 +5,7 @@ clear;
 anno1 = xlsread('Fiorenzuola.xlsx','2016','A2:E43580');
 anno2 = xlsread('Fiorenzuola.xlsx','2017','A2:E45668');
 anno3 = xlsread('Fiorenzuola.xlsx','2018','A2:E15074');
-dati = cat(1,anno1,anno2,anno3); % X nell'altro file
+dati  = cat(1,anno1,anno2,anno3); % X nell'altro file
 
 % Importo calendario con pesi dei giorni della settimana
 calendarioExcel = xlsread('Calendar.xlsx', 'Foglio1', 'C2:C850'); % X3 nell'altro file
