@@ -19,7 +19,8 @@ matriceGas      = zeros(length(idPuntiVendita),length(calendar));
 matriceBenzina  = zeros(length(idPuntiVendita),length(calendar));
 
 % Seleziono un id Punto Vendita da analizzare
-idPvDesiderato = 13846; % 1658
+idPvDesiderato = 13846
+; % 1658
 indexDesiderato = find(idPuntiVendita == idPvDesiderato);
 
 

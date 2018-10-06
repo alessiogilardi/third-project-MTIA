@@ -1,6 +1,8 @@
 clc;
 clear;
 
+% Test della rete ma con soli dati binari del tipo: ordina, non ordina
+
 % Ottenimento dataset da file Excel
 anno1 = xlsread('Fiorenzuola.xlsx','2016','A2:E43580');
 anno2 = xlsread('Fiorenzuola.xlsx','2017','A2:E45668');
@@ -19,7 +21,7 @@ matriceGas      = zeros(length(idPuntiVendita),length(calendar));
 matriceBenzina  = zeros(length(idPuntiVendita),length(calendar));
 
 % Seleziono un id Punto Vendita da analizzare
-idPvDesiderato = 13846; % 1658
+idPvDesiderato = 1658;
 indexDesiderato = find(idPuntiVendita == idPvDesiderato);
 
 
@@ -35,6 +37,10 @@ end
 matriceGasBlu(isnan(matriceGasBlu))     = 0;
 matriceGas(isnan(matriceGas))           = 0;
 matriceBenzina(isnan(matriceBenzina))   = 0;
+
+matriceGasBlu(matriceGasBlu > 0) = 1;
+matriceGas(matriceGas > 0) = 1;
+matriceBenzina(matriceBenzina > 0) = 1;
 
 % Input e Output per 2 anni: 2016,2017
 % 10 giorni per il GAS Blu, 10 GAS, 10 giorni per la Benzina, 10 giorni per
@@ -69,5 +75,3 @@ outputMatrix = outputMatrix';
 
 % Addestramento rete
 net = scriptTrain(inputMatrix, outputMatrix);
-
-

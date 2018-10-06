@@ -7,7 +7,6 @@ testDays = 731:848;
 % Predispongo le varibili per Uscita, Valori di test e Errore
 predicted        = zeros(3,length(testDays));
 testOutputValues = zeros(3,length(testDays));
-error            = zeros(3,length(testDays));
 
 % Predispongo vettore per valori di test in input
 testInputValues = zeros(length(testDays),42);
@@ -30,29 +29,17 @@ for k=1:length(testDays)
     
     testInputValues(k,41) = calendarioExcel(inizioTest+10);
     testInputValues(k,42) = calendarioExcel(inizioTest+11);
-    testInputValues       = testInputValues';
     
     testOutputValues(1,k) = matriceGasBlu(indexDesiderato, testDays(k));
     testOutputValues(2,k) = matriceGas(indexDesiderato, testDays(k));
     testOutputValues(3,k) = matriceBenzina(indexDesiderato, testDays(k));
     
-    predicted(:,k) = net(testInputValues(:,k));
-
-%     predicted(:,k) = net(TestingInput);
-% 
-%     for i=1:3
-%         if predicted(i,k) < 0
-%             predicted(i,k) = 0;
-%         end
-%     end
-%     
-%     error(:,k)=TestingOutput(:,k)-predicted(:,k);
+    predicted(:,k) = net(testInputValues(k,:)');
 end
 
-%predicted = net(testInputValues);
 predicted(predicted < 0) = 0;
 
 error = testOutputValues - predicted;
-meanSquareError = diag(error*error')/length(testDays);
+meanSquareError = diag(error*error')/length(testDays)
 
 
