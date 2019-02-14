@@ -16,12 +16,13 @@ error = out_test - predicted;
 
 startDate   = datenum('01-01-2018');
 endDate     = datenum('28-04-2018');
-
 xDate = linspace(startDate, endDate, size(out_test,2));
+
+figure('Name', 'Prediction')
 plot(xDate, predicted(1,:), '-o')
 hold on
 plot(xDate, out_test(1,:), '-o')
-
+legend('Prediction','Real Values')
 
 gblu_MSE = (error(1,:)*error(1,:)')/size(out_test,2);
 gaso_MSE = (error(2,:)*error(2,:)')/size(out_test,2);
@@ -43,10 +44,11 @@ gblu_MSE_bin = (err_bin(1,:)*err_bin(1,:)')/size(out_test,2);
 gaso_MSE_bin = (err_bin(2,:)*err_bin(2,:)')/size(out_test,2);
 benz_MSE_bin = (err_bin(3,:)*err_bin(3,:)')/size(out_test,2);
 
-MSE = [gblu_MSE_bin, gaso_MSE_bin, benz_MSE_bin]
+MSE_bin = [gblu_MSE_bin, gaso_MSE_bin, benz_MSE_bin]
 
 figure('Name', 'Binary Prediction')
 plot(xDate, predicted_bin(1,:), 'o')
 hold on
 plot(xDate, out_bin(1,:), 'o')
+legend('Prediction','Real Values')
 
