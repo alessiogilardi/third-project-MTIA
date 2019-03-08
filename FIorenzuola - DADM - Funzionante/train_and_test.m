@@ -15,12 +15,12 @@ cal = csvread('Calendar.csv',1);
 
 %% Genero il dataset con i tre anni
 X = [a_2016; a_2017; a_2018];
+X(:,1) = X(:,1) - 42369; % Normalizzo la data
 clear a_2016 a_2017 a_2018
 
 %% Seleziono un punto vendita e estraggo i dati
 PVs = unique(X(:,2));
 pv_selez = 13846; % PV per cui voglio fare la predizione
-X(:,1) = X(:,1) - 42369; % Normalizzo la data
 X_gblu((X(X(:,2)==pv_selez,1))) = X(X(:,2) == pv_selez,3);
 X_gaso((X(X(:,2)==pv_selez,1))) = X(X(:,2) == pv_selez,4);
 X_benz((X(X(:,2)==pv_selez,1))) = X(X(:,2) == pv_selez,5);
