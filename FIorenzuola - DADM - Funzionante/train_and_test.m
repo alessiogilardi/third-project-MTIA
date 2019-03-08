@@ -20,7 +20,7 @@ clear a_2016 a_2017 a_2018
 
 %% Seleziono un punto vendita e estraggo i dati
 PVs = unique(X(:,2));
-pv_selez = 13846; % PV per cui voglio fare la predizione
+pv_selez = mode(X(:,2)); % 13846; % PV per cui voglio fare la predizione
 X_gblu((X(X(:,2)==pv_selez,1))) = X(X(:,2) == pv_selez,3);
 X_gaso((X(X(:,2)==pv_selez,1))) = X(X(:,2) == pv_selez,4);
 X_benz((X(X(:,2)==pv_selez,1))) = X(X(:,2) == pv_selez,5);
@@ -54,21 +54,58 @@ end
 
 predicted(predicted < 0) = 0;
 
-
 %% Calcolo l'errore
 error = output_VS - predicted;
 
+%% Plotto
+figure
+subplot(3,1,1)
+title('Gasolio Blu')
+hold on
+grid on
+
+plot(0:(size(output_VS, 2)-1), output_VS(1,:))
+plot(0:(size(predicted, 2)-1), predicted(1,:))
+plot(0:(size(error, 2)-1), error(1,:))
+legend('Dati', 'Predizione', 'Errore')
+
+subplot(3,1,2)
+title('Gasolio')
+hold on
+grid on
+
+plot(0:(size(output_VS, 2)-1), output_VS(2,:))
+plot(0:(size(predicted, 2)-1), predicted(2,:))
+plot(0:(size(error, 2)-1), error(1,:))
+legend('Dati', 'Predizione', 'Errore')
+
+subplot(3,1,3)
+title('Benzina')
+hold on
+grid on
+
+plot(0:(size(output_VS, 2)-1), output_VS(3,:))
+plot(0:(size(predicted, 2)-1), predicted(3,:))
+plot(0:(size(error, 2)-1), error(1,:))
+legend('Dati', 'Predizione', 'Errore')
+
+%% MSE
 MSE_gblu = (error(1,:)*error(1,:)')/size(output_VS,2);
 MSE_gaso = (error(2,:)*error(2,:)')/size(output_VS,2);
 MSE_benz = (error(3,:)*error(3,:)')/size(output_VS,2);
 
+%MAD
 MAD_gblu = sum(abs(error(1,:)))/size(output_VS,2);
 MAD_gaso = sum(abs(error(2,:)))/size(output_VS,2);
 MAD_benz = sum(abs(error(3,:)))/size(output_VS,2);
 
-% MAPD_gblu = 100*sum(abs(error(1,error(1,:) > 0))./output_VS(1,error(1,:) > 0))/size(output_VS(1,error(1,:) > 0),2);
-% MAPD_gaso = 100*sum(abs(error(2,error(2,:) > 0))./output_VS(2,error(2,:) > 0))/size(output_VS(2,error(2,:) > 0),2);
-% MAPD_benz = 100*sum(abs(error(3,error(3,:) > 0))./output_VS(3,error(3,:) > 0))/size(output_VS(3,error(3,:) > 0),2);
+%% MAPD
+output_VS = output_VS + 1;
+predicted = predicted + 1;
+error = output_VS - predicted;
+MAPD_gblu = 100*sum(abs(error(1,:)./output_VS(1,:)))/size(output_VS,2);
+MAPD_gaso = 100*sum(abs(error(2,:)./output_VS(2,:)))/size(output_VS,2);
+MAPD_benz = 100*sum(abs(error(3,:)./output_VS(3,:)))/size(output_VS,2);
 
-clear cal i i1 input_VS input_TS net output_TS PVs X X_benz X_gaso X_gblu;
+clear cal i i1 input_VS input_TS net output_TS PVs X X_benz X_gaso X_gblu
 
