@@ -46,6 +46,6 @@ P2 = abs(y/L);
 P1 = P2(1:L/2+1);
 %moltiplicazione per due per la divisione della trasformata
 P1(2:end-1) = 2*P1(2:end-1);
-%dimezzio il tempo
+%dimezzo il tempo
 f = Fs*(0:L/2)/L;
 plot(f,P1);
