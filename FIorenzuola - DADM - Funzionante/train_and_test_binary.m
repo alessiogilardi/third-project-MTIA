@@ -114,8 +114,14 @@ MAD_benz = sum(abs(error(3,:)))/size(output_VS,2);
 output_VS = output_VS + 1;
 predicted = predicted + 1;
 error = output_VS - predicted;
+
 MAPD_gblu = 100*sum(abs(error(1,:)./output_VS(1,:)))/size(output_VS,2);
 MAPD_gaso = 100*sum(abs(error(2,:)./output_VS(2,:)))/size(output_VS,2);
 MAPD_benz = 100*sum(abs(error(3,:)./output_VS(3,:)))/size(output_VS,2);
+
+output_VS = output_VS - 1;
+predicted = predicted - 1;
+error = output_VS - predicted;
+
 clear cal i i1 input_VS input_TS net output_TS PVs X X_benz X_gaso X_gblu;
 
