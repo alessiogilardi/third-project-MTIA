@@ -15,15 +15,15 @@ cal = csvread('Calendar.csv',1);
 
 %% Genero il dataset con i tre anni
 X = [a_2016; a_2017; a_2018];
+X(:,1) = X(:,1) - 42369; % Normalizzo la data
 clear a_2016 a_2017 a_2018
 
 %% Seleziono un punto vendita e estraggo i dati
 PVs = unique(X(:,2));
-pv_selez = 13846; % PV per cui voglio fare la predizione
-X(:,1) = X(:,1) - 42369; % Normalizzo la data
-X_gblu((X(X(:,2)==pv_selez,1))) = X(X(:,2) == pv_selez,3);
-X_gaso((X(X(:,2)==pv_selez,1))) = X(X(:,2) == pv_selez,4);
-X_benz((X(X(:,2)==pv_selez,1))) = X(X(:,2) == pv_selez,5);
+pv_selez = mode(X(:,2)); % 13846; % PV per cui voglio fare la predizione
+X_gblu((X(X(:,2) == pv_selez,1))) = X(X(:,2) == pv_selez,3);
+X_gaso((X(X(:,2) == pv_selez,1))) = X(X(:,2) == pv_selez,4);
+X_benz((X(X(:,2) == pv_selez,1))) = X(X(:,2) == pv_selez,5);
 
 %% Rendo i dati binari
 X_gblu(X_gblu > 0) = 1;
@@ -71,7 +71,7 @@ predicted(3,predicted(3,:) >= mean(predicted(3,:))) = 1;
 %% Calcolo l'errore
 error = output_VS - predicted;
 
-%% Plotto
+%% Plotto (Dati, predizione)
 figure
 subplot(3,1,1)
 title('Gasolio Blu')
@@ -80,8 +80,7 @@ grid on
 
 plot(0:(size(output_VS, 2)-1), output_VS(1,:))
 plot(0:(size(predicted, 2)-1), predicted(1,:))
-plot(0:(size(error, 2)-1), error(1,:))
-legend('Dati', 'Predizione', 'Errore')
+legend('Dati', 'Predizione')
 
 subplot(3,1,2)
 title('Gasolio')
@@ -90,8 +89,7 @@ grid on
 
 plot(0:(size(output_VS, 2)-1), output_VS(2,:))
 plot(0:(size(predicted, 2)-1), predicted(2,:))
-plot(0:(size(error, 2)-1), error(1,:))
-legend('Dati', 'Predizione', 'Errore')
+legend('Dati', 'Predizione')
 
 subplot(3,1,3)
 title('Benzina')
@@ -100,8 +98,7 @@ grid on
 
 plot(0:(size(output_VS, 2)-1), output_VS(3,:))
 plot(0:(size(predicted, 2)-1), predicted(3,:))
-plot(0:(size(error, 2)-1), error(1,:))
-legend('Dati', 'Predizione', 'Errore')
+legend('Dati', 'Predizione')
 
 %% MSE
 MSE_gblu = (error(1,:)*error(1,:)')/size(output_VS,2);

@@ -21,9 +21,9 @@ clear a_2016 a_2017 a_2018
 %% Seleziono un punto vendita e estraggo i dati
 PVs = unique(X(:,2));
 pv_selez = mode(X(:,2)); % 13846; % PV per cui voglio fare la predizione
-X_gblu((X(X(:,2)==pv_selez,1))) = X(X(:,2) == pv_selez,3);
-X_gaso((X(X(:,2)==pv_selez,1))) = X(X(:,2) == pv_selez,4);
-X_benz((X(X(:,2)==pv_selez,1))) = X(X(:,2) == pv_selez,5);
+X_gblu((X(X(:,2) == pv_selez,1))) = X(X(:,2) == pv_selez,3);
+X_gaso((X(X(:,2) == pv_selez,1))) = X(X(:,2) == pv_selez,4);
+X_benz((X(X(:,2) == pv_selez,1))) = X(X(:,2) == pv_selez,5);
 
 
 %% Genero le matrici di input e output per il train della rete neurale (primi 730 giorni)

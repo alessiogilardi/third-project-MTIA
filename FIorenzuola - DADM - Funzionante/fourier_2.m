@@ -18,7 +18,7 @@ clear a_2016 a_2017 a_2018
 %% Seleziono il punto vendita
 PVs = unique(X(:,2));
 pv_selez = mode(X(:,2)); %13846; % PV per cui voglio fare la predizione
-X_pv((X(X(:,2)==pv_selez,1)), :) = X(X(:,2) == pv_selez, 3:5);
+X_pv((X(X(:,2) == pv_selez,1)), :) = X(X(:,2) == pv_selez, 3:5);
 
 
 %% Plotto un istogramma dei dati non normalizzati (escludo i valori nulli)
