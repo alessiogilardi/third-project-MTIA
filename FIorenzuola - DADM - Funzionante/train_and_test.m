@@ -94,10 +94,15 @@ MSE_gblu = (error(1,:)*error(1,:)')/size(output_VS,2);
 MSE_gaso = (error(2,:)*error(2,:)')/size(output_VS,2);
 MSE_benz = (error(3,:)*error(3,:)')/size(output_VS,2);
 
-%MAD
+%% MAD
 MAD_gblu = sum(abs(error(1,:)))/size(output_VS,2);
 MAD_gaso = sum(abs(error(2,:)))/size(output_VS,2);
 MAD_benz = sum(abs(error(3,:)))/size(output_VS,2);
+
+%% Segnale di tracciamento
+S_gblu = sum(error(1,:))/MAD_gblu;
+S_gaso = sum(error(1,:))/MAD_gaso;
+S_benz = sum(error(1,:))/MAD_benz;
 
 %% MAPD
 output_VS = output_VS + 1;

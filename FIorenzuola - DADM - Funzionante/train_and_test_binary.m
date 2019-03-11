@@ -20,7 +20,7 @@ clear a_2016 a_2017 a_2018
 
 %% Seleziono un punto vendita e estraggo i dati
 PVs = unique(X(:,2));
-pv_selez = mode(X(:,2)); % 13846; % PV per cui voglio fare la predizione
+pv_selez = 13846; %mode(X(:,2)); % 13846; % PV per cui voglio fare la predizione
 X_gblu((X(X(:,2) == pv_selez,1))) = X(X(:,2) == pv_selez,3);
 X_gaso((X(X(:,2) == pv_selez,1))) = X(X(:,2) == pv_selez,4);
 X_benz((X(X(:,2) == pv_selez,1))) = X(X(:,2) == pv_selez,5);
@@ -109,6 +109,11 @@ MSE_benz = (error(3,:)*error(3,:)')/size(output_VS,2);
 MAD_gblu = sum(abs(error(1,:)))/size(output_VS,2);
 MAD_gaso = sum(abs(error(2,:)))/size(output_VS,2);
 MAD_benz = sum(abs(error(3,:)))/size(output_VS,2);
+
+%% Segnale di tracciamento
+S_gblu = sum(error(1,:))/MAD_gblu;
+S_gaso = sum(error(1,:))/MAD_gaso;
+S_benz = sum(error(1,:))/MAD_benz;
 
 %% MAPD
 output_VS = output_VS + 1;
