@@ -32,7 +32,7 @@ clear X_gblu X_gaso X_benz
 X = (X - min(X,[],2))./(max(X,[],2) - min(X,[],2));
 
 %% Calcolo la media in ogni periodo
-days = 10;
+days = 30;
 for i = 1:days:(size(X,2)-days)
     X(:,i:i+days-1) = mean(X(:,i:i+days-1),2).*ones(size(X,1),days);
 end
