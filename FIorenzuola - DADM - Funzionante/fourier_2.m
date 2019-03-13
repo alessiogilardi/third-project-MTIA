@@ -64,7 +64,8 @@ X_pv(isnan(X_pv)) = -1;
 
 
 %%
-riga = X_pv(:,1);% - mean(X_pv(:,1));
+%Seleziono il prodotto di cui fare analisi di Fourier
+riga = X_pv(:,2);% - mean(X_pv(:,1));
 % Frequenza di campionamento
 Fs = 1;
 % Periodo di campionamento = 1/Fs
